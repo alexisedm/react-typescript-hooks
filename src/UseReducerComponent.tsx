@@ -36,6 +36,15 @@ function UseReducerComponent() {
     return (
         <div>
             <div>{state.counter}</div>
+
+            <button onClick={() =>
+             dispatch({
+                    type: "decrement",
+                    payload: 5,
+                })
+            }>
+                Decrement
+            </button>
             <button onClick={() => 
                 dispatch({
                     type: "increment",
@@ -46,14 +55,6 @@ function UseReducerComponent() {
                 Increment
             </button>
 
-            <button onClick={() =>
-             dispatch({
-                    type: "decrement",
-                    payload: 5,
-                })
-            }>
-                Increment
-            </button>
         </div>
     )
 }

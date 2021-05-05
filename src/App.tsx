@@ -6,6 +6,7 @@ import UseEffectComponent from "./UseEffectComponent";
 import UseReducerComponent from "./UseReducerComponent";
 import UseRefComponent from "./UseRefComponent";
 import CustomHooks from "./CustomHooks";
+import TestComponent from "./TestComponent";
 const App = () => {
   return (
     <div className="mt-2">
@@ -15,12 +16,11 @@ const App = () => {
       <TiposBasicos></TiposBasicos>
       <ObjetosLiterales></ObjetosLiterales>
 
+      <h1>Exporting Props as interface</h1> 
+      <TestComponent />
+      
       <h1>CustomHooks</h1> 
       <CustomHooks></CustomHooks>
-
-      <h1>UseRef</h1> 
-      <UseRefComponent></UseRefComponent>
-
 
       <h1>UseRef</h1> 
       <UseRefComponent></UseRefComponent>

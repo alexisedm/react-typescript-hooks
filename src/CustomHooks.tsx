@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 export interface Beverage {
   name: string;
@@ -13,17 +13,19 @@ export interface Beverage {
   level: number;
 }
 
-function useFetchData(url: string): {
+// function useFetchData(url: string): {
+function useFetchData<Payload>(url: string): {
 
-    data: Beverage[]  | null;
+    //data: Beverage[]  | null;
+    data: Payload | null;
     done:boolean
 } {
-    const [data, dataSet] = useState<Beverage[] | null>(null)
+    const [data, dataSet] = useState<Payload | null>(null)
     const [done, doneSet] = useState(false)
 
     useEffect(() => {
         fetch(url).then(resp => resp.json())
-        .then((d: Beverage[]) => {
+        .then((d: Payload) => {
             dataSet(d)
             doneSet(true)
         }).catch((err) => {
@@ -43,15 +45,18 @@ function useFetchData(url: string): {
 
 function CustomHooks() {
 
-    const { data, done } = useFetchData("/hv-taplist.json");
-    return ( 
-    <div>
-        {done && (
-            <img
-                src={data![3].logo}
-                alt="Logo" />
-        )}
-    </div>
+    const { data, done } = useFetchData<Beverage[]>("/hv-taplist.json");
+
+    const portlandTaps = useMemo(() =>
+        (data || []).filter(bev => bev.producerLocation.includes("Portland")),
+        [data])
+
+    return (
+        <div>
+            {portlandTaps.length && (
+                <img src={portlandTaps![0].logo} alt="Logo" />
+            )}
+        </div>
     );
 
 }
